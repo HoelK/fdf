@@ -1,7 +1,8 @@
 CC=cc
 FLAGS=-Werror -Wextra -Wall -g
-SRCS=o.c
-OBJS=o.o
+DIR=srcs
+SRCS=$(DIR)/display_line.c $(DIR)/fdf.c $(DIR)/display_management.c $(DIR)/parse.c
+OBJS=$(DIR)/display_line.o $(DIR)/fdf.o $(DIR)/display_management.o $(DIR)/parse.o
 NAME=fdf
 
 all: $(NAME)

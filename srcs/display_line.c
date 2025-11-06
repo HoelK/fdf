@@ -1,8 +1,4 @@
 #include "fdf.h"
-#include "minilibx-linux/mlx.h"
-#include <math.h>
-#include <stdlib.h>
-#include <stdio.h>
 
 void	print_data(float p1_x, float p1_y, float p2_x, float p2_y, float pad)
 {
