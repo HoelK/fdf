@@ -17,6 +17,7 @@ typedef struct s_display
 	void	*win;
 }	t_display;
 
+void	free_coordinates(int **coordinates);
 void	print_data(float p1_x, float p1_y, float p2_x, float p2_y, float pad);
 void	ft_swap(float *a, float *b);
 void	test_print(float p1_x, float p1_y, float p2_x, float p2_y);
