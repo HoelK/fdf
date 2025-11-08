@@ -51,6 +51,8 @@ int	count_coordinates(char *str)
 	{
 		while (str[i] && str[i] != '\n' && str[i] == ' ')
 			i++;
+		if (str[i] == '-')
+			i++;
 		if (ft_isnum(str[i]))
 			n_coo++;
 		while (str[i] && str[i] != '\n' && ft_isnum(str[i]))
@@ -63,14 +65,21 @@ int	*fill_coordinates(char *str, int *to_fill)
 {
 	int	i;
 	int	j;
+	int	neg;
 
 	i = 0;
 	j = 0;
+	neg = 0;
 	while (str[i] && str[i] != '\n')
 	{
 		to_fill[j] = 0;
 		while (str[i] && str[i] != '\n' && str[i] == ' ')
 			i++;
+		if (str[i] == '-')
+		{
+			neg = 1;
+			i++;
+		}
 		while (str[i] && str[i] != '\n' && ft_isnum(str[i]))
 		{
 			to_fill[j] += str[i] - '0';
@@ -78,6 +87,9 @@ int	*fill_coordinates(char *str, int *to_fill)
 				to_fill[j] *= 10;
 			i++;
 		}
+		if (neg)
+			to_fill[j] = -to_fill[j];
+		neg = 0;
 		j++;
 	}
 	return (to_fill);

@@ -22,28 +22,43 @@ void	display_map(t_display *display, t_map *map)
 	display_y(display, map);
 }
 
-int	get_vertex(int start, int i, int max)
+int	get_vertex(int i, int max)
 {
-	return (i * ((RES_Y - (start * 2)) / max));
+	//2d formula
+	return (100 + i * ((RES_Y - 400) / max));
+}
+
+t_vertex	get_iso(int x, int y, t_vertex *v, t_map *map)
+{
+	v->x = get_vertex(x, map->ymax);
+	v->y = get_vertex(y, map->ymax);
+	
+	float tmp = v->x;
+	v->x = (v->x + v->y) * cos(0.523599);
+	//v->y = ((v->y - tmp) * sin(0.523599)) + 400; //BETTER ANGLE, BAD LINES ??
+	v->y = (v->y * sin(0.523599) - map->ymax * 2) + 400;
+	
+	//v->x = (v->x + v->y) * cos(0.523599) + 100;
+	//v->y = (v->x - v->y) * sin(0.523599) + 300;
+	
+	//v->x = ((v->x - v->y) * cos(0.5));
+	//v->y = ((v->x + v->y) * sin(0.5));
+	return (*v);
 }
 
 void	display_y(t_display *display, t_map *map)
 {
 	int		x;
 	int		y;
-	int		start;
 
 	x = 0;
 	y = 0;
-	start = 100;
 	while (y < map->ymax)
 	{
 		while ((x + 1) < map->xmax)
 		{
-			map->vertex1.y = get_vertex(start, y, map->ymax);
-			map->vertex2.y = get_vertex(start, y, map->ymax);
-			map->vertex1.x = get_vertex(start, x, map->ymax);
-			map->vertex2.x = get_vertex(start, x + 1, map->ymax);
+			map->vertex1 = get_iso(x, y, &map->vertex1, map);
+			map->vertex2 = get_iso(x + 1, y, &map->vertex2, map);
 			display_line(display, &map->vertex1, &map->vertex2);
 			x++;
 		}
@@ -56,19 +71,15 @@ void	display_x(t_display *display, t_map *map)
 {
 	int		x;
 	int		y;
-	int		start;
 
 	x = 0;
 	y = 0;
-	start = 100;
 	while (x < map->xmax)
 	{
 		while ((y + 1) < map->ymax)
 		{
-			map->vertex1.x = get_vertex(start, x, map->ymax);
-			map->vertex2.x = get_vertex(start, x, map->ymax);
-			map->vertex1.y = get_vertex(start, y, map->ymax);
-			map->vertex2.y = get_vertex(start, y + 1, map->ymax);
+			map->vertex1 = get_iso(x, y, &map->vertex1, map);
+			map->vertex2 = get_iso(x, y + 1, &map->vertex2, map);
 			display_line(display, &map->vertex1, &map->vertex2);
 			y++;
 		}
