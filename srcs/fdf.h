@@ -12,11 +12,6 @@
 #define RES_X 1920
 #define RES_Y 1080
 
-typedef struct s_display
-{
-	void	*mlx;
-	void	*win;
-}	t_display;
 
 typedef struct s_vertex
 {
@@ -33,10 +28,17 @@ typedef struct s_map
 	int		**coordinates;
 }	t_map;
 
+typedef struct s_display
+{
+	void	*mlx;
+	void	*win;
+	t_map	*map;
+}	t_display;
+
 //memory
 void	free_all(char **strs);
 void	free_coordinates(int **coordinates);
-void	safe_kill(int **tab1, char **tab2);
+int	mlx_safekill(t_display *display);
 
 //file parse
 char	**get_file(char *file_path);
@@ -54,8 +56,7 @@ void	ft_swap(float *a, float *b);
 
 //display management
 t_display	init_display(t_display *display);
-int	mlx_close(t_display *display);
-int	mlx_safekill(t_display *display);
+int	mlx_close(t_display *display, t_map *map);
 int	handle_input(int keypress, t_display *display);
 
 //draw

@@ -17,8 +17,8 @@ int	main(int argc, char **argv)
 	display_y(&display, &map);
 	//display_line(&display, &map.vertex1, &map.vertex2);
 
+	mlx_close(&display, &map);
 	mlx_loop(display.mlx);
-	mlx_close(&display);
 	free_coordinates(map.coordinates);
 	return (0);
 }

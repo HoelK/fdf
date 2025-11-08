@@ -12,18 +12,20 @@ int	mlx_safekill(t_display *display)
         mlx_destroy_window(display->mlx, display->win);
 	mlx_destroy_display(display->mlx);
 	free(display->mlx);
+	free_coordinates(display->map->coordinates);
 	exit(0);
 }
 
 int	handle_input(int keypress, t_display *display)
 {
-    if (keypress == XK_Escape)
-	    mlx_safekill(display);
-    return (0);
+	if (keypress == XK_Escape)
+		mlx_safekill(display);
+	return (0);
 }
 
-int	mlx_close(t_display *display)
+int	mlx_close(t_display *display, t_map *map)
 {
+	display->map = map;
 	mlx_key_hook(display->win, handle_input, display);
 	mlx_hook(display->win, 17, 1L<<2, mlx_safekill, display);
 	return (0);
