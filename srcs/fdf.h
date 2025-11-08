@@ -1,4 +1,3 @@
-
 #ifndef FDF_H
 # define FDF_H
 
@@ -10,6 +9,8 @@
 #include <X11/keysym.h>
 #include "../minilibx-linux/mlx.h"
 #include "../gnl/get_next_line.h"
+#define RES_X 1920
+#define RES_Y 1080
 
 typedef struct s_display
 {
@@ -17,23 +18,54 @@ typedef struct s_display
 	void	*win;
 }	t_display;
 
-void	free_coordinates(int **coordinates);
-void	print_data(float p1_x, float p1_y, float p2_x, float p2_y, float pad);
-void	ft_swap(float *a, float *b);
-void	test_print(float p1_x, float p1_y, float p2_x, float p2_y);
+typedef struct s_vertex
+{
+	float	x;
+	float	y;
+}	t_vertex;
+
+typedef struct s_map
+{
+	int		xmax;
+	int		ymax;
+	t_vertex	vertex1;
+	t_vertex	vertex2;
+	int		**coordinates;
+}	t_map;
+
+//memory
 void	free_all(char **strs);
-int	count_lines(char *file_path);
-void	error_handle(int argc);
-char	**get_file(char *file_path);
-int	ft_isnum(char c);
-int	count_coordinates(char *str);
+void	free_coordinates(int **coordinates);
 void	safe_kill(int **tab1, char **tab2);
+
+//file parse
+char	**get_file(char *file_path);
+int	count_lines(char *file_path);
+
+//coordinate parse
+int	count_coordinates(char *str);
 int	*fill_coordinates(char *str, int *to_fill);
 int	**parse_coordinate(char **file, int nx, int ny);
+int	**get_coordinate(char *file_path, t_map *map);
+
+//utils
+int	ft_isnum(char c);
+void	ft_swap(float *a, float *b);
+
+//display management
 t_display	init_display(t_display *display);
+int	mlx_close(t_display *display);
 int	mlx_safekill(t_display *display);
 int	handle_input(int keypress, t_display *display);
-int	mlx_close(t_display *display);
-int	**get_coordinate(char *file_path);
+
+//draw
+void	display_line(t_display *display, t_vertex *v1, t_vertex *v2);
+void	display_map(t_display *display, t_map *map);
+void	display_y(t_display *display, t_map *map);
+void	display_x(t_display *display, t_map *map);
+
+void	error_handle(int argc);
+void	print_data(float p1_x, float p1_y, float p2_x, float p2_y, float pad);
+void	test_print(float p1_x, float p1_y, float p2_x, float p2_y);
 
 #endif

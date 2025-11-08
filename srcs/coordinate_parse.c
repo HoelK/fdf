@@ -108,17 +108,14 @@ int	**parse_coordinates(char **file, int nx, int ny)
 	return (coordinates);
 }
 
-int	**get_coordinate(char *file_path)
+int	**get_coordinate(char *file_path, t_map *map)
 {
-	int	nx;
-	int	ny;
 	char	**file_content;
-	int	**coordinates;
 
 	file_content = get_file(file_path);
-	nx = count_lines(file_path);
-	ny = count_coordinates(file_content[0]);
-	coordinates = parse_coordinates(file_content, nx, ny);
+	map->xmax = count_lines(file_path);
+	map->ymax = count_coordinates(file_content[0]);
+	map->coordinates = parse_coordinates(file_content, map->xmax, map->ymax);
 	free_doublestr(file_content);
-	return (coordinates);
+	return (map->coordinates);
 }
