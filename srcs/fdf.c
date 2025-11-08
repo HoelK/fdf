@@ -10,12 +10,7 @@ int	main(int argc, char **argv)
 	map.coordinates = get_coordinate(argv[1], &map);
 	display = init_display(&display);
 
-	//display_map(&display, &map);
-	//test_print(1, 700, 1000, 10);
-
-	display_x(&display, &map);
-	display_y(&display, &map);
-	//display_line(&display, &map.vertex1, &map.vertex2);
+	display_map(&display, &map);
 
 	mlx_close(&display, &map);
 	mlx_loop(display.mlx);

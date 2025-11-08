@@ -91,15 +91,15 @@ int	**parse_coordinates(char **file, int nx, int ny)
 
 	i = 0;
 	j = 0;
-	coordinates = malloc(sizeof(int *) * (nx + 1));
+	coordinates = malloc(sizeof(int *) * (ny + 1));
 	if (coordinates == NULL)
 		return (NULL);
-	while (i < nx + 1)
+	while (i < ny + 1)
 		coordinates[i++] = NULL;
 	i = 0;
-	while (i < nx)
+	while (i < ny)
 	{
-		coordinates[i] = malloc(sizeof(int) * ny);
+		coordinates[i] = malloc(sizeof(int) * nx);
 		if (coordinates[i] == NULL)
 			safe_kill(coordinates, file);
 		coordinates[i] = fill_coordinates(file[i], coordinates[i]);
@@ -113,8 +113,8 @@ int	**get_coordinate(char *file_path, t_map *map)
 	char	**file_content;
 
 	file_content = get_file(file_path);
-	map->xmax = count_lines(file_path);
-	map->ymax = count_coordinates(file_content[0]);
+	map->ymax = count_lines(file_path);
+	map->xmax = count_coordinates(file_content[0]);
 	map->coordinates = parse_coordinates(file_content, map->xmax, map->ymax);
 	free_doublestr(file_content);
 	return (map->coordinates);

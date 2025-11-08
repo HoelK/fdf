@@ -24,40 +24,10 @@ void	display_map(t_display *display, t_map *map)
 
 int	get_vertex(int start, int i, int max)
 {
-	return (start + (i * ((RES_Y - (start * 2)) / max)));
+	return (i * ((RES_Y - (start * 2)) / max));
 }
 
 void	display_y(t_display *display, t_map *map)
-{
-	int		x;
-	int		y;
-	int		start;
-
-	x = 0;
-	y = 0;
-	start = 100;
-	while (x < map->xmax)
-	{
-		while ((y + 1) < map->ymax)
-		{
-			map->vertex1.x = get_vertex(start, x, map->ymax);
-			map->vertex2.x = get_vertex(start, x, map->ymax);
-			map->vertex1.y = get_vertex(start, y, map->ymax);
-			map->vertex2.y = get_vertex(start, y + 1, map->ymax);
-			display_line(display, &map->vertex1, &map->vertex2);
-			printf("vertex x : %d\n", get_vertex(start, x, map->xmax));
-			printf("vertex y : %d\n", get_vertex(start, y, map->ymax));
-			printf("vertex y + 1: %d\n", get_vertex(start, y + 1, map->ymax));
-			printf("xmax : %d\n", map->xmax);
-			printf("ymax : %d\n", map->ymax);
-			y++;
-		}
-		y = 0;
-		x++;
-	}
-}
-
-void	display_x(t_display *display, t_map *map)
 {
 	int		x;
 	int		y;
@@ -75,15 +45,35 @@ void	display_x(t_display *display, t_map *map)
 			map->vertex1.x = get_vertex(start, x, map->ymax);
 			map->vertex2.x = get_vertex(start, x + 1, map->ymax);
 			display_line(display, &map->vertex1, &map->vertex2);
-			printf("vertex x : %d\n", get_vertex(start, x, map->xmax));
-			printf("vertex y : %d\n", get_vertex(start, y, map->ymax));
-			printf("vertex y + 1: %d\n", get_vertex(start, y + 1, map->ymax));
-			printf("xmax : %d\n", map->xmax);
-			printf("ymax : %d\n", map->ymax);
 			x++;
 		}
 		x = 0;
 		y++;
+	}
+}
+
+void	display_x(t_display *display, t_map *map)
+{
+	int		x;
+	int		y;
+	int		start;
+
+	x = 0;
+	y = 0;
+	start = 100;
+	while (x < map->xmax)
+	{
+		while ((y + 1) < map->ymax)
+		{
+			map->vertex1.x = get_vertex(start, x, map->ymax);
+			map->vertex2.x = get_vertex(start, x, map->ymax);
+			map->vertex1.y = get_vertex(start, y, map->ymax);
+			map->vertex2.y = get_vertex(start, y + 1, map->ymax);
+			display_line(display, &map->vertex1, &map->vertex2);
+			y++;
+		}
+		y = 0;
+		x++;
 	}
 }
 
