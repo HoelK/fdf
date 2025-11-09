@@ -6,7 +6,7 @@
 /*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 19:32:05 by hkeromne          #+#    #+#             */
-/*   Updated: 2025/11/01 18:51:49 by hkeromne         ###   ########.fr       */
+/*   Updated: 2025/11/09 21:31:18 by hkeromne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #  define FD_MAX 1024
 # endif
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 15
+#  define BUFFER_SIZE 10000000
 # endif
 
 char	*ft_strjoin(char *s1, char *s2);
