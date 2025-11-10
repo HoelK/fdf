@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/10 20:11:51 by hkeromne          #+#    #+#             */
+/*   Updated: 2025/11/10 21:11:42 by hkeromne         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 int	main(int argc, char **argv)
@@ -7,7 +19,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		error_handle(argc);
-	map.coordinates = get_coordinate(argv[1], &map);
+	map = init_map(argv[1]);
 	display = init_display(&display);
 	display_map(&display, &map);
 	mlx_close(&display, &map);
