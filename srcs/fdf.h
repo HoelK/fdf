@@ -62,6 +62,7 @@ int	mlx_close(t_display *display, t_map *map);
 int	handle_input(int keypress, t_display *display);
 
 //draw
+void	display_all(t_display *display, t_map *map);
 void	display_line(t_display *display, t_vertex *v1, t_vertex *v2, unsigned long color);
 void	display_map(t_display *display, t_map *map);
 void	display_y(t_display *display, t_map *map);

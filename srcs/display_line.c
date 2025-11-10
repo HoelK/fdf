@@ -11,13 +11,17 @@ void	display_map(t_display *display, t_map *map)
 {
 	display_x(display, map);
 	display_y(display, map);
+	//display_all(display, map);
 }
 
 
 int	get_vertex(int i, int max)
 {
 	//2d formula
-	return (100 + i * ((RES_Y - 400) / max));
+	if (max < 500)
+		return (i * ((RES_Y / 3) / max));
+	else
+		return (i * ((RES_Y / 2) / max));
 }
 
 int	ft_ishex(char c)
@@ -58,8 +62,18 @@ t_vertex	get_iso(int x, int y, t_vertex *v, t_map *map)
 	z = get_vertex(map->coordinates[y][x], map->ymax);
 	
 	tmp = v->x;
-	v->x = (v->x - v->y) * cos(0.523599) + 600;
-	v->y = ((tmp + v->y) * sin(0.523599)) - z + 100;
+	v->x = (v->y + tmp) * cos(0.523599);
+	v->y = ((v->y - tmp) * sin(0.523599)) - z;
+	if (map->ymax < 500)
+	{
+		v->x += (RES_X / 4);
+		v->y += (RES_Y / 1.5);
+	}
+	else
+	{
+		v->x += (RES_X / 4);
+		v->y += (RES_Y / 2);
+	}
 	return (*v);
 }
 
@@ -102,6 +116,30 @@ void	display_x(t_display *display, t_map *map)
 		}
 		y = 0;
 		x++;
+	}
+}
+
+void	display_all(t_display *display, t_map *map)
+{
+	int	x;
+	int	y;
+
+	x = map->xmax - 1;
+	y = map->ymax - 1;
+	while (x > 0)
+	{
+		while (y > 0)
+		{
+			map->vertex1 = get_iso(x, y, &map->vertex1, map);
+			map->vertex2 = get_iso(x, (y - 1), &map->vertex2, map);
+			display_line(display, &map->vertex1, &map->vertex2, map->colors[y][x]);
+			map->vertex1 = get_iso((x - 1), y, &map->vertex1, map);
+			map->vertex2 = get_iso(x, y, &map->vertex2, map);
+			display_line(display, &map->vertex1, &map->vertex2, map->colors[y][x]);
+			y--;
+		}
+		y = map->ymax - 1;
+		x--;
 	}
 }
 
