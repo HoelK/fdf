@@ -10,6 +10,18 @@ void	free_all(char **strs)
 	free(strs);
 }
 
+void	error_handle(int argc)
+{
+	if (argc > 2)
+		printf("Error : Too many files");
+	else if (argc < 2)
+		printf("Error : No file turned in");
+	else
+		perror(strerror(errno));
+	exit(0);
+}
+
+
 int	count_lines(char *file_path)
 {
 	int	file;
@@ -25,17 +37,6 @@ int	count_lines(char *file_path)
 	}
 	close(file);
 	return (lines);
-}
-
-void	error_handle(int argc)
-{
-	if (argc > 2)
-		printf("Error : Too many files");
-	else if (argc < 2)
-		printf("Error : No file turned in");
-	else
-		perror(strerror(errno));
-	exit(0);
 }
 
 char	**get_file(char *file_path)

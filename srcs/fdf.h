@@ -15,17 +15,18 @@
 
 typedef struct s_vertex
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	unsigned long	color;
 }	t_vertex;
 
 typedef struct s_map
 {
-	int		xmax;
-	int		ymax;
-	t_vertex	vertex1;
-	t_vertex	vertex2;
-	int		**coordinates;
+	int			xmax;
+	int			ymax;
+	t_vertex		vertex1;
+	t_vertex		vertex2;
+	int			**coordinates;
 	unsigned long		**colors;
 }	t_map;
 
@@ -63,7 +64,7 @@ int	handle_input(int keypress, t_display *display);
 
 //draw
 void	display_all(t_display *display, t_map *map);
-void	display_line(t_display *display, t_vertex *v1, t_vertex *v2, unsigned long color);
+void	display_line(t_display *display, t_vertex *v1, t_vertex *v2);
 void	display_map(t_display *display, t_map *map);
 void	display_y(t_display *display, t_map *map);
 void	display_x(t_display *display, t_map *map);
