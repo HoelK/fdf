@@ -6,7 +6,7 @@
 /*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:38:32 by hkeromne          #+#    #+#             */
-/*   Updated: 2025/11/11 06:17:08 by hkeromne         ###   ########.fr       */
+/*   Updated: 2025/11/11 19:43:46 by hkeromne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	mlx_close(t_display *display, t_map *map)
 	return (0);
 }
 
-void	mlx_img_pixel_put(t_img *img, int x, int y, unsigned long color)
+void	mlx_img_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*pixel;
 

@@ -6,7 +6,7 @@
 /*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:40:37 by hkeromne          #+#    #+#             */
-/*   Updated: 2025/11/11 06:52:05 by hkeromne         ###   ########.fr       */
+/*   Updated: 2025/11/11 19:44:39 by hkeromne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,35 @@ void	display_all(t_display *display, t_map *map)
 	}
 }
 
-unsigned long	update_color(unsigned long color1, unsigned long color2, unsigned long curr_color)
+
+void	update_color(t_vertex *v1, t_vertex *v2, t_vertex *curr_v)
 {
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
+	int				curr_step;
+	int				steps;
+	unsigned char	res[3];
+	t_vertex		*tmp;
 
-	r = (color >> 16);
-	g = ((color >> 8) & 0xFF);
-	b = (color & 0xFF);
-
-
+	if (v1->color == v2->color || curr_v->y == v1->y)
+		return ;
+	if (v1->y < v2->y)
+	{
+		tmp = v1;
+		v1 = v2;
+		v2 = tmp;
+	}
+	curr_step = (curr_v->y - v1->y);
+	if (curr_v->y > v1->y)
+		curr_step = (v1->y - curr_v->y);
+	steps = abs(v2->y - v1->y);
+	if (curr_step == 0)
+		curr_step++;
+	res[0] = ((v1->color >> 16) - (v2->color >> 16)) / steps;
+	res[1] = (((v1->color >> 8) & 0xFF) - ((v2->color >> 8) & 0xFF)) / steps;
+	res[2] = ((v1->color & 0xFF) - (v2->color & 0xFF)) / steps;
+	curr_v->color = 0 |
+		(((v1->color >> 16) + curr_step * res[0]) & 0xFF) << 16 |
+		((((v1->color >> 8) & 0xFF)+ curr_step * res[1]) & 0xFF) << 8 |
+		(((v1->color & 0xFF) + curr_step * res[2]) & 0xFF) << 0;
 }
 
 void	display_line(t_display *display, t_vertex *v1, t_vertex *v2)
@@ -104,20 +122,18 @@ void	display_line(t_display *display, t_vertex *v1, t_vertex *v2)
 	float		pad;
 	t_vertex	curr_v;
 	float		offset;
-	int			color_offset;
 
 	offset = 0;
 	curr_v.x = v1->x;
 	curr_v.y = v1->y;
 	curr_v.color = v1->color;
 	pad = ((float)(v2->x - v1->x) / (float)(v2->y - v1->y));
-	color_offset = ((v2->color - v1->color));
 	while (curr_v.x != v2->x || curr_v.y != v2->y)
 	{
 		if ((int)offset == 0)
 			offset += pad;
 		mlx_img_pixel_put(&display->img, curr_v.x, curr_v.y, curr_v.color);
 		curr_v = update_v(&curr_v, v2, &offset, pad);
-		curr_v.color += color_offset;
+		update_color(v1, v2, &curr_v);
 	}
 }

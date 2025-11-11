@@ -6,13 +6,13 @@
 /*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 22:10:59 by hkeromne          #+#    #+#             */
-/*   Updated: 2025/11/10 22:10:59 by hkeromne         ###   ########.fr       */
+/*   Updated: 2025/11/11 19:38:26 by hkeromne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	safe_kill(char **tab1, int **tab2, unsigned long **tab3)
+void	safe_kill(char **tab1, int **tab2, int **tab3)
 {
 	int	i;
 

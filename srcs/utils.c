@@ -6,7 +6,7 @@
 /*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:42:29 by hkeromne          #+#    #+#             */
-/*   Updated: 2025/11/10 21:54:27 by hkeromne         ###   ########.fr       */
+/*   Updated: 2025/11/11 19:37:58 by hkeromne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	ft_ishex(char c)
 		|| (c >= 'A' && c <= 'F'));
 }
 
-unsigned long	strhex_to_ulong(char *str)
+int	str_to_color(char *str)
 {
 	int				i;
-	unsigned long	result;
+	int				result;
 
 	i = 0;
 	result = 0;

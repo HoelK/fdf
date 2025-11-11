@@ -6,7 +6,7 @@
 /*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:50:16 by hkeromne          #+#    #+#             */
-/*   Updated: 2025/11/11 06:04:30 by hkeromne         ###   ########.fr       */
+/*   Updated: 2025/11/11 19:41:58 by hkeromne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_vertex
 {
 	int				x;
 	int				y;
-	unsigned long	color;
+	int				color;
 }	t_vertex;
 
 typedef struct s_map
@@ -38,7 +38,7 @@ typedef struct s_map
 	t_vertex		vertex1;
 	t_vertex		vertex2;
 	int				**coordinates;
-	unsigned long	**colors;
+	int				**colors;
 }	t_map;
 
 typedef struct s_img
@@ -70,17 +70,17 @@ int				count_lines(char *file_path);
 //coordinate parse
 t_map			init_map(char *file_path);
 int				count_coordinates(char *str);
-int				**parse_coordinates(char **file, unsigned long ***colors,
+int				**parse_coordinates(char **file, int ***colors,
 					int nx, int ny);
 int				*fill_coordinates(char *str, int *coordinates,
-					unsigned long *colors, int nx);
+					int *colors, int nx);
 int				**get_coordinate(char *file_path, t_map *map);
 
 //utils
 int				ft_isnum(char c);
 int				ft_ishex(char c);
 int				ft_atoi(const char *nptr);
-unsigned long	strhex_to_ulong(char *str);
+int				str_to_color(char *str);
 
 //display management
 t_display		init_display(t_display *display);
@@ -93,7 +93,7 @@ void			display_line(t_display *display, t_vertex *v1, t_vertex *v2);
 void			display_map(t_display *display, t_map *map);
 void			display_y(t_display *display, t_map *map);
 void			display_x(t_display *display, t_map *map);
-void			mlx_img_pixel_put(t_img *img, int x, int y, unsigned long color);
+void			mlx_img_pixel_put(t_img *img, int x, int y, int color);
 
 void			error_handle(int argc);
 void			test_print(float p1_x, float p1_y, float p2_x, float p2_y);
@@ -107,6 +107,6 @@ t_vertex		update_v(t_vertex *curr_v, t_vertex *v2, float *offset,
 //Mem safe
 void			free_doublestr(char **strs);
 void			free_coordinates(int **coordinates);
-void			safe_kill(char **tab1, int **tab2, unsigned long **tab3);
+void			safe_kill(char **tab1, int **tab2, int **tab3);
 
 #endif

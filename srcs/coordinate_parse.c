@@ -6,7 +6,7 @@
 /*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:44:59 by hkeromne          #+#    #+#             */
-/*   Updated: 2025/11/10 22:11:12 by hkeromne         ###   ########.fr       */
+/*   Updated: 2025/11/11 19:42:25 by hkeromne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	skip_num(char *str)
 	return (i);
 }
 
-void	fill_map(char *str, int *coordinates, unsigned long *colors, int nx)
+void	fill_map(char *str, int *coordinates, int *colors, int nx)
 {
 	int	i;
 	int	j;
@@ -69,7 +69,7 @@ void	fill_map(char *str, int *coordinates, unsigned long *colors, int nx)
 		if (str[i] == ',')
 		{
 			i += 3;
-			colors[j] = strhex_to_ulong(&str[i]);
+			colors[j] = str_to_color(&str[i]);
 			while (str[i] && ft_ishex(str[i]))
 				i++;
 		}
@@ -93,7 +93,7 @@ t_map	parse_file_content(t_map *map, char **file)
 	while (i < (map->ymax))
 	{
 		map->coordinates[i] = malloc(sizeof(int) * map->xmax);
-		map->colors[i] = malloc(sizeof(unsigned long) * map->xmax);
+		map->colors[i] = malloc(sizeof(int) * map->xmax);
 		if (map->colors[i] == NULL)
 			safe_kill(file, map->coordinates, map->colors);
 		fill_map(file[i], map->coordinates[i], map->colors[i], map->xmax);
@@ -111,7 +111,7 @@ t_map	init_map(char *file_path)
 	map.ymax = count_lines(file_path);
 	map.xmax = count_coordinates(file_content[0]);
 	map.coordinates = malloc(sizeof(int *) * (map.ymax + 1));
-	map.colors = malloc(sizeof(unsigned long *) * (map.ymax + 1));
+	map.colors = malloc(sizeof(int *) * (map.ymax + 1));
 	if (!map.coordinates || !map.colors)
 		safe_kill(file_content, map.coordinates, map.colors);
 	map = parse_file_content(&map, file_content);
