@@ -6,7 +6,7 @@
 /*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:44:59 by hkeromne          #+#    #+#             */
-/*   Updated: 2025/11/11 19:42:25 by hkeromne         ###   ########.fr       */
+/*   Updated: 2025/11/11 22:27:28 by hkeromne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ t_map	parse_file_content(t_map *map, char **file)
 		fill_map(file[i], map->coordinates[i], map->colors[i], map->xmax);
 		i++;
 	}
+	free_doublestr(file);
 	return (*map);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:50:16 by hkeromne          #+#    #+#             */
-/*   Updated: 2025/11/11 19:41:58 by hkeromne         ###   ########.fr       */
+/*   Updated: 2025/11/11 22:19:23 by hkeromne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int				map_vertex(int i, int max, char mod);
 t_vertex		get_vertex(int x, int y, t_vertex *v, t_map *map);
 t_vertex		update_v(t_vertex *curr_v, t_vertex *v2, float *offset,
 					float pad);
+void			update_color(t_vertex *v1, t_vertex *v2, t_vertex *curr_v);
 
 //Mem safe
 void			free_doublestr(char **strs);

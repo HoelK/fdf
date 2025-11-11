@@ -6,7 +6,7 @@
 /*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 22:12:55 by hkeromne          #+#    #+#             */
-/*   Updated: 2025/11/11 17:33:03 by hkeromne         ###   ########.fr       */
+/*   Updated: 2025/11/11 22:18:41 by hkeromne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	map_vertex(int i, int max, char mod)
 
 	res = ((float)RES_X / (float)RES_Y);
 	if (mod == 'y')
-		return (i * ((RES_Y / res) / max));
+		return (i * ((RES_Y / 2) / max));
 	if (mod == 'x')
-		return (i * ((RES_X / (res * res)) / max));
+		return (i * ((RES_X / (res * 2)) / max));
 	if (mod == 'z')
-		return (i * ((RES_Y / (res * res * res)) / max));
+		return (i * ((RES_Y / (res * 2)) / max));
 	return (0);
 }
 
@@ -63,4 +63,32 @@ t_vertex	update_v(t_vertex *curr_v, t_vertex *v2, float *offset, float pad)
 	if (curr_v->y != v2->y && (int)(*offset) == 0)
 		curr_v->y += y_add;
 	return (*curr_v);
+}
+
+void	update_color(t_vertex *v1, t_vertex *v2, t_vertex *curr_v)
+{
+	int				curr_step;
+	int				steps;
+	unsigned char	res[3];
+	t_vertex		*tmp;
+
+	if (v1->color == v2->color || curr_v->y == v1->y)
+		return ;
+	if (v1->y < v2->y)
+	{
+		tmp = v1;
+		v1 = v2;
+		v2 = tmp;
+	}
+	curr_step = (curr_v->y - v1->y);
+	if (curr_v->y > v1->y)
+		curr_step = (v1->y - curr_v->y);
+	steps = abs(v2->y - v1->y);
+	res[0] = ((v1->color >> 16) - (v2->color >> 16)) / steps;
+	res[1] = (((v1->color >> 8) & 0xFF) - ((v2->color >> 8) & 0xFF)) / steps;
+	res[2] = ((v1->color & 0xFF) - (v2->color & 0xFF)) / steps;
+	curr_v->color = 0
+		| (((v1->color >> 16) + curr_step * res[0]) & 0xFF) << 16
+		| ((((v1->color >> 8) & 0xFF) + curr_step * res[1]) & 0xFF) << 8
+		| (((v1->color & 0xFF) + curr_step * res[2]) & 0xFF) << 0;
 }

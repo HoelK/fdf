@@ -6,7 +6,7 @@
 /*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:38:32 by hkeromne          #+#    #+#             */
-/*   Updated: 2025/11/11 19:43:46 by hkeromne         ###   ########.fr       */
+/*   Updated: 2025/11/11 22:24:01 by hkeromne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ t_display	init_display(t_display *display)
 
 int	mlx_safekill(t_display *display)
 {
+	mlx_destroy_image(display->mlx, display->img.mlx_img);
 	mlx_destroy_window(display->mlx, display->win);
 	mlx_destroy_display(display->mlx);
 	free(display->mlx);
 	free_coordinates(display->map->coordinates);
+	free_coordinates(display->map->colors);
 	exit (0);
 }
 
