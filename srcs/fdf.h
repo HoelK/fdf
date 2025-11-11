@@ -6,7 +6,7 @@
 /*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:50:16 by hkeromne          #+#    #+#             */
-/*   Updated: 2025/11/10 22:10:43 by hkeromne         ###   ########.fr       */
+/*   Updated: 2025/11/11 06:04:30 by hkeromne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <string.h>
 # include <X11/keysym.h>
 # include "../minilibx-linux/mlx.h"
-# include "../gnl/get_next_line.h"
+# include "get_next_line.h"
 # define RES_X 1920
 # define RES_Y 1080
 
@@ -41,11 +41,21 @@ typedef struct s_map
 	unsigned long	**colors;
 }	t_map;
 
+typedef struct s_img
+{
+	void	*mlx_img;
+	char	*addr;
+	int		endian;
+	int		line_len;
+	int		bits_per_px;
+}	t_img;
+
 typedef struct s_display
 {
 	void	*mlx;
 	void	*win;
 	t_map	*map;
+	t_img	img;
 }	t_display;
 
 //memory
@@ -83,9 +93,16 @@ void			display_line(t_display *display, t_vertex *v1, t_vertex *v2);
 void			display_map(t_display *display, t_map *map);
 void			display_y(t_display *display, t_map *map);
 void			display_x(t_display *display, t_map *map);
+void			mlx_img_pixel_put(t_img *img, int x, int y, unsigned long color);
 
 void			error_handle(int argc);
 void			test_print(float p1_x, float p1_y, float p2_x, float p2_y);
+
+//vertexs
+int				map_vertex(int i, int max, char mod);
+t_vertex		get_vertex(int x, int y, t_vertex *v, t_map *map);
+t_vertex		update_v(t_vertex *curr_v, t_vertex *v2, float *offset,
+					float pad);
 
 //Mem safe
 void			free_doublestr(char **strs);

@@ -1,14 +1,14 @@
 CC=cc
 FLAGS=-Werror -Wextra -Wall -g3 -O3
 DIR=srcs
-SRCS=$(DIR)/display_line.c $(DIR)/fdf.c $(DIR)/display_management.c $(DIR)/file_parse.c $(DIR)/coordinate_parse.c $(DIR)/utils.c gnl/get_next_line.c gnl/get_next_line_utils.c
-OBJS=$(DIR)/display_line.o $(DIR)/fdf.o $(DIR)/display_management.o $(DIR)/file_parse.o $(DIR)/coordinate_parse.o $(DIR)/utils.o gnl/get_next_line.o gnl/get_next_line_utils.o
+SRCS=$(DIR)/display_line.c $(DIR)/fdf.c $(DIR)/display_management.c $(DIR)/file_parse.c $(DIR)/coordinate_parse.c $(DIR)/utils.c  $(DIR)/mem_safe.c $(DIR)/vertexs.c $(DIR)/get_next_line.c $(DIR)/get_next_line_utils.c
+OBJS=$(DIR)/display_line.o $(DIR)/fdf.o $(DIR)/display_management.o $(DIR)/file_parse.o $(DIR)/coordinate_parse.o $(DIR)/utils.o  $(DIR)/mem_safe.o $(DIR)/vertexs.o $(DIR)/get_next_line.o $(DIR)/get_next_line_utils.o
 NAME=fdf
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -Lmlx_linux -lmlx_Linux -L./minilibx-linux -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) -lmlx_Linux -L./minilibx-linux -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 %.o: %.c
 	$(CC) $(FLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@

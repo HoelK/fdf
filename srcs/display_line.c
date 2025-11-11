@@ -6,7 +6,7 @@
 /*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:40:37 by hkeromne          #+#    #+#             */
-/*   Updated: 2025/11/10 22:31:27 by hkeromne         ###   ########.fr       */
+/*   Updated: 2025/11/11 06:52:05 by hkeromne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	display_map(t_display *display, t_map *map)
 	//display_x(display, map);
 	//display_y(display, map);
 	display_all(display, map);
+	mlx_put_image_to_window(display->mlx, display->win, display->img.mlx_img, 0, 0);
 }
 
 void	display_y(t_display *display, t_map *map)
@@ -85,23 +86,38 @@ void	display_all(t_display *display, t_map *map)
 	}
 }
 
+unsigned long	update_color(unsigned long color1, unsigned long color2, unsigned long curr_color)
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+
+	r = (color >> 16);
+	g = ((color >> 8) & 0xFF);
+	b = (color & 0xFF);
+
+
+}
+
 void	display_line(t_display *display, t_vertex *v1, t_vertex *v2)
 {
 	float		pad;
 	t_vertex	curr_v;
 	float		offset;
+	int			color_offset;
 
 	offset = 0;
 	curr_v.x = v1->x;
 	curr_v.y = v1->y;
 	curr_v.color = v1->color;
 	pad = ((float)(v2->x - v1->x) / (float)(v2->y - v1->y));
+	color_offset = ((v2->color - v1->color));
 	while (curr_v.x != v2->x || curr_v.y != v2->y)
 	{
 		if ((int)offset == 0)
 			offset += pad;
-		mlx_pixel_put(display->mlx, display->win, curr_v.x, curr_v.y,
-			curr_v.color);
-		curr_v = update_vertex(&curr_v, v2, &offset, pad);
+		mlx_img_pixel_put(&display->img, curr_v.x, curr_v.y, curr_v.color);
+		curr_v = update_v(&curr_v, v2, &offset, pad);
+		curr_v.color += color_offset;
 	}
 }
