@@ -6,7 +6,7 @@
 /*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:38:32 by hkeromne          #+#    #+#             */
-/*   Updated: 2025/11/11 22:24:01 by hkeromne         ###   ########.fr       */
+/*   Updated: 2025/11/20 04:59:15 by hkeromne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,15 @@
 t_display	init_display(t_display *display)
 {
 	display->mlx = mlx_init();
+	if (!display->mlx)
+		exit(0);
 	display->win = mlx_new_window(display->mlx, RES_X, RES_Y, "Window");
+	if (!display->win)
+		return (mlx_destroy_display(display->mlx), exit(0), *display);
 	display->img.mlx_img = mlx_new_image(display->mlx, RES_X, RES_Y);
+	if (!display->img.mlx_img)
+		return (mlx_destroy_window(display->mlx, display->win),
+			mlx_destroy_display(display->mlx), exit(0), *display);
 	display->img.addr = mlx_get_data_addr(display->img.mlx_img,
 			&display->img.bits_per_px, &display->img.line_len,
 			&display->img.endian);

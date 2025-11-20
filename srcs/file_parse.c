@@ -6,7 +6,7 @@
 /*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 20:12:08 by hkeromne          #+#    #+#             */
-/*   Updated: 2025/11/10 22:08:09 by hkeromne         ###   ########.fr       */
+/*   Updated: 2025/11/20 04:47:44 by hkeromne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	free_all(char **strs)
 void	error_handle(int argc)
 {
 	if (argc > 2)
-		printf("Error : Too many files");
+		write(1, "Error : Too many files\n", 23);
 	else if (argc < 2)
-		printf("Error : No file turned in");
+		write(1, "Error : No file turned in\n", 26);
 	else
 		perror(strerror(errno));
 	exit(0);
@@ -59,7 +59,7 @@ char	**get_file(char *file_path)
 	i = 0;
 	file = open(file_path, O_RDONLY);
 	if (file < 0)
-		error_handle(1);
+		kill_error(file_path);
 	parsed = malloc(sizeof(char *) * (count_lines(file_path) + 1));
 	if (parsed == NULL)
 		return (NULL);

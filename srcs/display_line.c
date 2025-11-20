@@ -6,7 +6,7 @@
 /*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:40:37 by hkeromne          #+#    #+#             */
-/*   Updated: 2025/11/11 22:17:56 by hkeromne         ###   ########.fr       */
+/*   Updated: 2025/11/20 04:56:30 by hkeromne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,32 @@
 
 void	display_map(t_display *display, t_map *map)
 {
-	//display_x(display, map);
-	//display_y(display, map);
 	display_all(display, map);
 	mlx_put_image_to_window(display->mlx, display->win,
 		display->img.mlx_img, 0, 0);
 }
 
-void	display_y(t_display *display, t_map *map)
+void	display_borders(t_display *display, t_map *map)
 {
-	int		x;
-	int		y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;
-	while (y < map->ymax)
+	while ((x + 1) < map->xmax)
 	{
-		while ((x + 1) < map->xmax)
-		{
-			map->vertex1 = get_vertex(x, y, &map->vertex1, map);
-			map->vertex2 = get_vertex(x + 1, y, &map->vertex2, map);
-			display_line(display, &map->vertex1, &map->vertex2);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-}
-
-void	display_x(t_display *display, t_map *map)
-{
-	int		x;
-	int		y;
-
-	x = 0;
-	y = 0;
-	while (x < map->xmax)
-	{
-		while ((y + 1) < map->ymax)
-		{
-			map->vertex1 = get_vertex(x, y, &map->vertex1, map);
-			map->vertex2 = get_vertex(x, y + 1, &map->vertex2, map);
-			display_line(display, &map->vertex1, &map->vertex2);
-			y++;
-		}
-		y = 0;
+		map->vertex1 = get_vertex(x, y, &map->vertex1, map);
+		map->vertex2 = get_vertex(x + 1, y, &map->vertex2, map);
+		display_line(display, &map->vertex1, &map->vertex2);
 		x++;
+	}
+	x = 0;
+	while ((y + 1) < map->ymax)
+	{
+		map->vertex1 = get_vertex(x, y, &map->vertex1, map);
+		map->vertex2 = get_vertex(x, y + 1, &map->vertex2, map);
+		display_line(display, &map->vertex1, &map->vertex2);
+		y++;
 	}
 }
 
@@ -85,6 +65,7 @@ void	display_all(t_display *display, t_map *map)
 		y = map->ymax - 1;
 		x--;
 	}
+	display_borders(display, map);
 }
 
 void	display_line(t_display *display, t_vertex *v1, t_vertex *v2)

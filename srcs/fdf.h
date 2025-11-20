@@ -6,7 +6,7 @@
 /*   By: hkeromne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:50:16 by hkeromne          #+#    #+#             */
-/*   Updated: 2025/11/11 22:19:23 by hkeromne         ###   ########.fr       */
+/*   Updated: 2025/11/20 04:46:26 by hkeromne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_display
 void			free_all(char **strs);
 void			free_coordinates(int **coordinates);
 int				mlx_safekill(t_display *display);
+void			kill_error(char *message);
 
 //file parse
 char			**get_file(char *file_path);
@@ -91,9 +92,8 @@ int				handle_input(int keypress, t_display *display);
 void			display_all(t_display *display, t_map *map);
 void			display_line(t_display *display, t_vertex *v1, t_vertex *v2);
 void			display_map(t_display *display, t_map *map);
-void			display_y(t_display *display, t_map *map);
-void			display_x(t_display *display, t_map *map);
 void			mlx_img_pixel_put(t_img *img, int x, int y, int color);
+void			display_borders(t_display *display, t_map *map);
 
 void			error_handle(int argc);
 void			test_print(float p1_x, float p1_y, float p2_x, float p2_y);
